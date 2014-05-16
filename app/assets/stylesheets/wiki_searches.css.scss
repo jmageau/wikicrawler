@@ -1,0 +1,49 @@
+.searches-listing {
+  padding: 20px;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+
+  .header {
+    width: 20%;
+    float: left;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+
+    text-decoration: none;
+    color: #000;
+    display: block;
+
+  }
+
+  .list-element {
+    overflow: hidden;
+
+    border-bottom: 1px solid #ccc;
+
+    text-decoration: none;
+    color: #000;
+    display: block;
+    background-color: #EEEEEE;
+
+    transition: font-size 0.3s ease, background-color 0.3s ease, transform 1s ease, -webkit-transform 1s ease;
+
+    &:nth-child(odd) {
+      background-color: #DDDDDD;
+    }
+
+    &:hover {
+      font-size: 26px;
+      background-color: #888888;
+    }
+
+    &:last-child {
+      border: none;
+    }
+
+    .attribute {
+      width: 20%;
+      float: left;
+    }
+  }
+}
+

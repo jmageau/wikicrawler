@@ -1,0 +1,16 @@
+<div class="list-element">
+  <div class="attribute">
+    <%= wiki_search.start_title %>
+  </div>
+  <div class="attribute">
+    <%= wiki_search.goal_title %>
+  </div>
+  <div class="attribute" style="width: 50%">
+    <%= wiki_search.steps %>
+  </div>
+  <div class="attribute" style="width:10%; text-decoration: none">
+    <%= link_to "Delete", wiki_search_path(wiki_search.id), method: :delete, data: {confirm: "Are you sure you want to delete this search?"} %>
+  </div>
+
+
+</div>

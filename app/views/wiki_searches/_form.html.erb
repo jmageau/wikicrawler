@@ -1,0 +1,22 @@
+<%= form_for(@wiki_search) do |f| %>
+
+<ul>
+  <% @wiki_search.errors.full_messages.each do |error| %>
+  <li><%= error %></li>
+  <% end %>
+</ul>
+
+<p>
+<%= f.label :start_title %><br>
+  <%= f.text_field :start_title, style:"width: 200px" %>
+</p>
+<p>
+  <%= f.label :goal_title %><br>
+  <%= f.text_field :goal_title, style:"width: 200px" %>
+</p>
+
+<p>
+  <%= f.submit class:"button" %>
+</p>
+
+<% end %>
