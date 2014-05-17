@@ -1,3 +1,42 @@
+.wiki-search {
+  float: left;
+  width: 20%;
+  min-width: 300px;
+  background-color: #DDD;
+  margin: 10px;
+
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+
+  .wiki-search-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .wiki-search-content {
+    display: none;
+
+    .wiki-search-steps {
+    }
+  }
+
+  &:hover .wiki-search-content {
+    display: block;
+  }
+
+
+}
+
+.wiki-search-loading-icon {
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
 .searches-listing {
   padding: 20px;
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
@@ -16,6 +55,8 @@
   }
 
   .list-element {
+    cursor: default;
+
     overflow: hidden;
 
     border-bottom: 1px solid #ccc;
