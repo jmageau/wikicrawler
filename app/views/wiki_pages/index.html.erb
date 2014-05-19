@@ -1,0 +1,3 @@
+<h1>Saved Articles (<%= @wiki_pages.count %>)</h1>
+
+<%= render @wiki_pages.order(:title) %>

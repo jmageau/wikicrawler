@@ -11,7 +11,10 @@ module WikiSearchesHelper
   def get_steps(start_title, goal_title)
     return "PAGE !EXISTS" unless page_exists(start_title.gsub(' ', '_')) && page_exists(goal_title.gsub(' ', '_'))
     return "SEARCH EXISTS" unless !search_exists(start_title.gsub('_', ' '), goal_title.gsub('_', ' '))
-    a = Time.now
+    return "EMPTY" unless !start_title.empty? && !goal_title.empty?
+    @start_time = Time.now
+    @total_new = 0
+    @total_old = 0
     visited_links = [start_title]
     root = TreeNode.new(nil, start_title.gsub(' ', '_'))
     queue = [root]
@@ -23,7 +26,13 @@ module WikiSearchesHelper
       puts current.content
       i+=1
       current = queue.shift
+      if current.nil?
+        return "NO PATH"
+      end
       current_page_links = get_internal_links(current.content)
+      if current_page_links.nil?
+        next
+      end
       if current_page_links.any? {|l| l.casecmp(parameterized_goal_title) == 0}
         current = current.add_child(parameterized_goal_title)
         break
@@ -37,22 +46,34 @@ module WikiSearchesHelper
     end
     steps = []
     current.parentage.each {|s| steps << s.content.gsub('_', ' ')}
-    puts "TIME FOR COMPLETION: #{1000*(Time.now - a)}"
+    puts "TIME FOR COMPLETION: #{Time.now - @start_time}"
+    puts "#{@total_new} new pages, #{@total_old} already existed"
     steps
   end
 
   def get_internal_links(page)
+    p = WikiPage.find_by("lower(title) = ?", page.downcase)
+    unless p.nil?
+      puts "ALREADY EXISTS!"
+      @total_old += 1
+      return p.links
+    end
+    puts "DOESN'T EXIST YET!"
     source = Net::HTTP.get("en.wikipedia.org", "/wiki/" << page)
     links = source.scan(/href="\/wiki\/([^"]+)"/).flatten
     links = remove_non_wiki_pages(links)
     links = links.uniq
+    @total_new += 1
+    WikiPage.create(title: page, links: links);nil
+    links
   end
 
   def remove_non_wiki_pages(l)
     new_links = []
     l.each do |link|
-      if link !~ /\AMain_Page|\A((File)|(Template)|(Template_talk)|(Portal)|(Category)|(Help)|(Wikipedia)|(Talk)|(Special)|(Book)):.+/i
-        new_links << link
+      if link !~ /\AMain_Page|\A((File)|(Template)|(Template_talk)|(Portal)|(Category)|(Help)|(Wikipedia)|(Talk)|(Special)|(Book)):.+/i &&
+        !link.include?("(disambiguation)")
+        new_links << link.partition('#').first
       end
     end
     new_links

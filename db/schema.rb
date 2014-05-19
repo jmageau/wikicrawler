@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514022142) do
+ActiveRecord::Schema.define(version: 20140519045628) do
+
+  create_table "wiki_pages", force: true do |t|
+    t.string   "title"
+    t.text     "links"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wiki_pages", ["title"], name: "index_wiki_pages_on_title"
 
   create_table "wiki_searches", force: true do |t|
     t.string   "start_title"

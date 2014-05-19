@@ -6,7 +6,7 @@
 <% @prev = nil %>
 <% @wiki_searches.order(:start_title).each do |s| %>
   <% if @prev != nil && @prev.start_title != s.start_title %>
-    <br><br><hr>
+    <hr style="clear:both">
   <% end %>
   <%= render s %>
   <% @prev = s %>

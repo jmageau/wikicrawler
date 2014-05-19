@@ -1,7 +1,5 @@
 body {
   padding: 50px 0;
-  min-width: 900px;
-
 }
 
 .simple-link {
@@ -69,7 +67,7 @@ hr {
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
-  height: 50px;
+  display: inline-block;
 }
 
 .button:hover {

@@ -1,0 +1,9 @@
+<h1>Article: <%= link_to @wiki_page.title.gsub('_', ' '), wiki_url(@wiki_page.title), style:"text-decoration: none; color: black"%></h1>
+
+<%= link_to "Back", wiki_pages_path, class: "button" %>
+
+<h2>Links (<%= @wiki_page.links.count %>)</h2>
+
+<% @wiki_page.links.sort.each do |l| %>
+  <%= link_to l.gsub('_', ' '), wiki_url(l), class: "wiki-page"%>
+<% end%>
