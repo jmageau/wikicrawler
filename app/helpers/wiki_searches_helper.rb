@@ -68,7 +68,9 @@ module WikiSearchesHelper
     links = remove_non_wiki_pages(links)
     links = links.uniq
     @total_new += 1
-    WikiPage.create(title: page, links: links);nil
+    if @use_database
+      WikiPage.create(title: page, links: links);nil
+    end
     links
   end
 
