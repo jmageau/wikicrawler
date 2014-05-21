@@ -5,6 +5,8 @@ module WikiSearchesHelper
     params.require(:wiki_search).permit(:start_title, :goal_title)
   end
 
+  @use_database = false
+
   # "CKGL", "Kitchener,_Ontario", "Germans", "Adolf_Hitler", 531 seconds
   # CKLG ??
   # 314 for JAVA!
@@ -52,11 +54,13 @@ module WikiSearchesHelper
   end
 
   def get_internal_links(page)
-    p = WikiPage.find_by("lower(title) = ?", page.downcase)
-    unless p.nil?
-      puts "ALREADY EXISTS!"
-      @total_old += 1
-      return p.links
+    if @use_database
+      p = WikiPage.find_by("lower(title) = ?", page.downcase)
+      unless p.nil?
+        puts "ALREADY EXISTS!"
+        @total_old += 1
+        return p.links
+      end
     end
     puts "DOESN'T EXIST YET!"
     source = Net::HTTP.get("en.wikipedia.org", "/wiki/" << page)
