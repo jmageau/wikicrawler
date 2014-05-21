@@ -1,1 +1,7 @@
 Finds a shortest path from one wiki article to another.
+
+TODO
+  Refactor code
+  Give actual option to store to database, button to delete saved articles
+  Run Search in background task (gem)
+  Improve UI
