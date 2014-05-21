@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140519045628) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "wiki_pages", force: true do |t|
     t.string   "title"
     t.text     "links"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140519045628) do
     t.datetime "updated_at"
   end
 
-  add_index "wiki_pages", ["title"], name: "index_wiki_pages_on_title"
+  add_index "wiki_pages", ["title"], name: "index_wiki_pages_on_title", using: :btree
 
   create_table "wiki_searches", force: true do |t|
     t.string   "start_title"
